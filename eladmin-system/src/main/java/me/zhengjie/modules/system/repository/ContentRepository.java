@@ -17,7 +17,19 @@ import static org.hibernate.annotations.QueryHints.CACHEABLE;
 public interface ContentRepository {
 
     @QueryHints(value = @QueryHint(name = CACHEABLE, value = "true"))
-    @Query(value = "SELECT c FROM Content c WHERE c.title LIKE %:title% AND c.category = :category AND c.label = :label", nativeQuery = true)
+    @Query(value = "select \n" +
+            "title,\n" +
+            "author,\n" +
+            "category,\n" +
+            "label,\n" +
+            "recommend,\n" +
+            "sticky,\n" +
+            "reading\n" +
+            "from tb_article where \n" +
+            "1 = 1 and \n" +
+            "(title = :title or :title is null)\n" +
+            "and (category = :category or :category is null)\n" +
+            "and (label = :label or :label is null)", nativeQuery = true)
     Page<Map<String, Object>> searchContent(@Param("title") String title,
                                             @Param("category") String category,
                                             @Param("label") String label,
