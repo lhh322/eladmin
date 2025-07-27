@@ -57,13 +57,24 @@ paths:
 components:
 
   parameters:
-
     title:
-      type: string
+      name: title
+      in: query
+      required: true
+      schema:
+        type: string
     category:
-      type: string
+      name: category
+      in: query
+      required: true
+      schema:
+        type: string
     label:
-      type: string
+      name: label
+      in: query
+      required: true
+      schema:
+        type: string
     pageParam:
       name: page
       in: query
@@ -98,8 +109,48 @@ components:
 
     SearchArticleResponse:
       type: object
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: '#/components/schemas/PageableItem'
       properties:
+        articleList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArticleListTableItem"
 
+    ArticleListTableItem:
+      type: object
+      properties:
+        title:
+          type: string
+          example: ""
+        author:
+          type: string
+          example: ""
+        category:
+          type: string
+          example: ""
+        label:
+          type: string
+          example: ""
+        recommend:
+          type: string
+          example: ""
+        sticky:
+          type: string
+          example: ""
+        reading:
+          type: integer
+          example: ""
+        createTime:
+          type: string
+
+    BaseResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2017-07-21 17:32:28"
 
     ErrorResponse:
       type: object
