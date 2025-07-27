@@ -38,24 +38,24 @@ import java.util.Map;
 public interface ApiApi {
 
     @Operation(summary = "Search Article with criteria", description = "Search Article with criteria", tags={ "config" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SearchArticleResponse.class))),
-        
-        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))),
-        
-        @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))),
-        
-        @ApiResponse(responseCode = "500", description = "System Internal Error. Please contact system administrator", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))) })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SearchArticleResponse.class))),
+
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))),
+
+            @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))),
+
+            @ApiResponse(responseCode = "500", description = "System Internal Error. Please contact system administrator", content = @Content(mediaType = "application/vnd.error+json", schema = @Schema(implementation = ErrorResponse.class))) })
     @RequestMapping(value = "/api/v1/content/article",
-        produces = { "application/json", "application/vnd.error+json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<SearchArticleResponse> searchArticle(@NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "title", required = true) String title
-, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "category", required = true) String category
-, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema()) @Valid @RequestParam(value = "label", required = true) String label
-, @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "page", required = false) Integer page
-, @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "size", required = false) Integer size
-, @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "sort", required = false) String sort
-);
+            produces = { "application/json", "application/vnd.error+json" },
+            method = RequestMethod.GET)
+    ResponseEntity<SearchArticleResponse> searchArticle(@Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "title", required = false) String title
+            , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "category", required = false) String category
+            , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "label", required = false) String label
+            , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "page", required = false) Integer page
+            , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "size", required = false) Integer size
+            , @Parameter(in = ParameterIn.QUERY, description = "" ,schema=@Schema()) @Valid @RequestParam(value = "sort", required = false) String sort
+    );
 
 }
 

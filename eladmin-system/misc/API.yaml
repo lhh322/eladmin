@@ -60,19 +60,19 @@ components:
     title:
       name: title
       in: query
-      required: true
+      required: false
       schema:
         type: string
     category:
       name: category
       in: query
-      required: true
+      required: false
       schema:
         type: string
     label:
       name: label
       in: query
-      required: true
+      required: false
       schema:
         type: string
     pageParam:
