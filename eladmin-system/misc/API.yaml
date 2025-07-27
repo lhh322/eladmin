@@ -1,0 +1,180 @@
+openapi: "3.0.3"
+info:
+  title: API Specification
+  description: API based on the OpenAPI 3.0 specification.
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+tags:
+  - name: cases
+    description: Everything about your cases
+paths:
+
+  #############################################
+  ## Authorization
+  #############################################
+
+  /api/v1/content/article:
+    get:
+      tags:
+        - config
+      summary: Search Article with criteria
+      description: Search Article with criteria
+      operationId: searchArticle
+      parameters:
+        - $ref: "#/components/parameters/title"
+        - $ref: "#/components/parameters/category"
+        - $ref: "#/components/parameters/label"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/sizeParam"
+        - $ref: "#/components/parameters/sortParam"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchArticleResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/vnd.error+json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Record not found
+          content:
+            application/vnd.error+json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: System Internal Error. Please contact system administrator
+          content:
+            application/vnd.error+json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+
+  parameters:
+
+    title:
+      type: string
+    category:
+      type: string
+    label:
+      type: string
+    pageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        example: 1
+
+    sizeParam:
+      name: size
+      in: query
+      schema:
+        type: integer
+        example: 15
+
+    sortParam:
+      name: sort
+      in: query
+      schema:
+        type: string
+        example: 0,1
+
+    typeParam:
+      name: type
+      in: query
+      description: |
+      required: false
+      explode: true
+      schema:
+        type: string
+
+  schemas:
+
+    SearchArticleResponse:
+      type: object
+      properties:
+
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          example: "2017-07-21 17:32:28"
+        httpStatus:
+          type: integer
+          description: HTTP status code
+          example: 400
+        error:
+          type: string
+          description: Error type
+          example: Application Exception
+        code:
+          type: string
+          description: Error code (Defined by backend)
+          example: APP0001
+        message:
+          type: string
+          description: Human readable error message
+          example: User not logged in
+        path:
+          type: string
+          description: API path name
+          example: /training/courses
+
+    PageableItem:
+      properties:
+        last:
+          type: boolean
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+        sort:
+          $ref: "#/components/schemas/sort"
+        first:
+          type: boolean
+        numberOfElements:
+          type: integer
+        empty:
+          type: boolean
+
+    Pageable:
+      allOf:
+        - $ref: '#/components/schemas/page'
+
+    page:
+      type: object
+      properties:
+        sort:
+          $ref: "#/components/schemas/sort"
+        offset:
+          type: integer
+        pageSize:
+          type: integer
+        pageNumber:
+          type: integer
+        unpaged:
+          type: integer
+        paged:
+          type: integer
+
+    sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
