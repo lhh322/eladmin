@@ -1,11 +1,7 @@
 package me.zhengjie.modules.system.swagger.model;
 
 import java.util.Objects;
-import io.swagger.model.Page;
-import io.swagger.model.Sort;
 import org.springframework.validation.annotation.Validated;
-import org.openapitools.jackson.nullable.JsonNullable;
-import io.swagger.configuration.NotUndefined;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
@@ -16,7 +12,6 @@ import javax.validation.constraints.*;
  * Pageable
  */
 @Validated
-@NotUndefined
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2025-07-27T14:15:01.243014296Z[GMT]")
 
 
