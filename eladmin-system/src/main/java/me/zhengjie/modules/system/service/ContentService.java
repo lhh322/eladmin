@@ -21,7 +21,7 @@ public class ContentService {
 
     public SearchArticleResponse searchArticle(String title, String category, String label, Integer page, Integer size, String sort) {
         SearchArticleResponse response = new SearchArticleResponse();
-        org.springframework.data.domain.Pageable pageable = PageRequest.of(page - 1, size, null);
+        org.springframework.data.domain.Pageable pageable = PageRequest.of(page , size);
         Page<Map<String, Object>> dataPage = contentRepository.searchContent(title, category, label, pageable);
         if (ObjectUtil.isNotEmpty(dataPage)) {
             List<ArticleListTableItem> list = new ArrayList<>(dataPage.getNumberOfElements());
